@@ -3,3 +3,6 @@ Logs
 Temp
 Animation-Practice.sln
 Assembly-CSharp.csproj
+obj
+Assembly-CSharp-Editor.csproj
+.idea
