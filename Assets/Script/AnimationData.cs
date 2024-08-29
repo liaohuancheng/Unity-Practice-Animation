@@ -3,7 +3,7 @@ using UnityEngine;
 public class AnimationData : ScriptableObject
 {
     [System.Serializable]
-    public class FrameData
+    public struct FrameData
     {
         public float time;
         public Matrix4x4[] matrix4X4s;
