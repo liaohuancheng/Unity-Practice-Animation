@@ -24,6 +24,7 @@ Shader "chenjd/URP/AnimMapShader"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma enable_d3d11_debug_symbols
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
@@ -59,8 +60,8 @@ Shader "chenjd/URP/AnimMapShader"
             {
                 UNITY_SETUP_INSTANCE_ID(v);
 
-                float f = _Time.y / _AnimLen; //_Time.y = Time.timeSinceLevelLoad，就是场景加载时间
-
+                // float f = _Time.y / _AnimLen; //_Time.y = Time.timeSinceLevelLoad，就是场景加载时间
+                float f = _Time.y / _AnimLen;
                 f = fmod(f,1.0); //fmod(x, y): 返回 x / y 的小数部分. 如: x = i * y + f
                 //这里相当于是把f 限制在了0~1，作为 UV中的 V 值
                 

@@ -13,6 +13,7 @@ public class CpuAnimator : MonoBehaviour {
     private List<Vector3> newPoints; //新（进行动画采样后的）顶点信息
     private int frameCount = 0; //帧数，用于控制动画播放
     private BoneWeight[] boneWeights;
+    public Texture2D texture2D;
     
 
     public NativeArray<Vector3> sourcePointsArray;
@@ -31,6 +32,7 @@ public class CpuAnimator : MonoBehaviour {
         bindPoses = mesh.bindposes;
         newPoints = new List<Vector3>(sourcePoints);
         boneWeights = mesh.boneWeights;
+        
         
         sourcePointsArray = new NativeArray<Vector3>(sourcePoints.Count, Allocator.Persistent);
         sourcePointsArray.CopyFrom(sourcePoints.ToArray());
@@ -82,17 +84,6 @@ public class CpuAnimator : MonoBehaviour {
     private void ApplyFrame() {
         AnimationData.FrameData frameData = animData.frameDatas[frameCount];
         frameMatrix.CopyFrom(frameData.matrix4X4s);
-        // for (int i = 0; i < sourcePoints.Count; i++) {
-        //     var point = sourcePoints[i];
-        //     BoneWeight boneWeight = boneWeights[i];
-        //     Matrix4x4 tempMat0 = frameData.matrix4X4s[boneWeight.boneIndex0] * bindPoses[boneWeight.boneIndex0];
-        //     Matrix4x4 tempMat1 = frameData.matrix4X4s[boneWeight.boneIndex1] * bindPoses[boneWeight.boneIndex1];
-        //     Matrix4x4 tempMat2 = frameData.matrix4X4s[boneWeight.boneIndex2] * bindPoses[boneWeight.boneIndex2];
-        //     Matrix4x4 tempMat3 = frameData.matrix4X4s[boneWeight.boneIndex3] * bindPoses[boneWeight.boneIndex3];
-        //
-        //     Vector3 tmp = tempMat0.MultiplyPoint(point) * boneWeight.weight0 + tempMat1.MultiplyPoint(point) * boneWeight.weight1 + tempMat2.MultiplyPoint(point) * boneWeight.weight2 + tempMat3.MultiplyPoint(point) * boneWeight.weight3;
-        //     newPoints[i] = tmp;
-        // }
         MyParallelJob jobData = new MyParallelJob();
         jobData.sourcePoints = sourcePointsArray;  
         jobData.boneWeightsArray = boneWeightsArray;
