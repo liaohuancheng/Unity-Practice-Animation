@@ -122,10 +122,10 @@ public class MatrixExtractorToTexture : EditorWindow
         mesh = new Mesh();
         m_bones = m_obj.GetComponentInChildren<SkinnedMeshRenderer>().bones;
         doExtract = true;
+        frameCounter = 0;
         m_dir = dir;
         m_frameCount = (int)(animationClip.frameRate * animationClip.length);
         m_perFrameTime = animationClip.length / m_frameCount; ;
-        m_frameList.Clear();
         texture = new Texture2D(smr.sharedMesh.vertexCount, m_frameCount, TextureFormat.RGBAHalf, true);
         SetPlayableGraph();
     }
